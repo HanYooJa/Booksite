@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React, { useEffect, useReducer } from 'react'
 import Layout from '../components/Layout'
 import { getError } from '../utils/error'
+
 function reducer(state, action) {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -21,6 +22,7 @@ function OrderHistoryScreen() {
     orders: [],
     error: '',
   })
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -53,29 +55,25 @@ function OrderHistoryScreen() {
                 <th className="p-5 text-left">ACTION</th>
               </tr>
             </thead>
-
             <tbody>
               {orders.map((order) => (
                 <tr key={order._id} className="border-b">
                   <td className=" p-5 ">{order._id.substring(20, 24)}</td>
                   <td className=" p-5 ">{order.createdAt.substring(0, 10)}</td>
                   <td className=" p-5 ">${order.totalPrice}</td>
-
                   <td className=" p-5 ">
                     {order.isPaid
                       ? `${order.paidAt.substring(0, 10)}`
                       : 'not paid'}
                   </td>
-
                   <td className=" p-5 ">
                     {order.isDelivered
                       ? `${order.deliveredAt.substring(0, 10)}`
                       : 'not delivered'}
                   </td>
-
                   <td className=" p-5 ">
                     <Link href={`/order/${order._id}`} passHref>
-                      Details
+                      <a>Details</a>
                     </Link>
                   </td>
                 </tr>
@@ -85,7 +83,8 @@ function OrderHistoryScreen() {
         </div>
       )}
     </Layout>
-  );
+  )
 }
+
 OrderHistoryScreen.auth = true
 export default OrderHistoryScreen

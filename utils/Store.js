@@ -1,7 +1,6 @@
 import { createContext, useReducer } from 'react'
+export const Store = createContext() // 컨텍스트 생성
 import Cookies from 'js-cookie'
-
-export const Store = createContext()
 
 const initialState = {
   cart: Cookies.get('cart')
@@ -40,9 +39,6 @@ function reducer(state, action) {
           paymentMethod: '',
         },
       }
-    case 'CART_CLEAR_ITEMS':
-      return { ...state, cart: { ...state.cart, cartItems: [] } }
-
     case 'SAVE_SHIPPING_ADDRESS':
       return {
         ...state,
@@ -62,11 +58,13 @@ function reducer(state, action) {
           paymentMethod: action.payload,
         },
       }
+    case 'CART_CLEAR_ITEMS':
+      return { ...state, cart: { ...state.cart, cartItems: [] } }
+
     default:
       return state
   }
 }
-
 export function StoreProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const value = { state, dispatch }

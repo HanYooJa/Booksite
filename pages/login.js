@@ -1,11 +1,10 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import Layout from '../components/Layout'
 import { signIn, useSession } from 'next-auth/react'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import { getError } from '../utils/error'
 
 export default function LoginScreen() {
@@ -25,7 +24,7 @@ export default function LoginScreen() {
     formState: { errors },
   } = useForm()
 
-  const submithandler = async ({ email, password }) => {
+  const submitHandler = async ({ email, password }) => {
     try {
       const result = await signIn('credentials', {
         redirect: false,
@@ -42,45 +41,37 @@ export default function LoginScreen() {
 
   const githubLoginHandler = async () => {
     try {
-      const result = await signIn('github', {
-        redirect: false,
-      })
-      console.log('Github Login:' + result)
-    } catch (err) {
-      toast.error(getError(err))
+      const result = await signIn('github', { redirect: false })
+      console.log('Github Login: ' + result)
+    } catch (error) {
+      toast.error(getError(error))
     }
   }
 
-  const googlehubLoginHandler = async () => {
+  const googleLoginHandler = async () => {
     try {
-      const result = await signIn('google', {
-        redirect: false,
-      })
-      console.log('Google Login:' + result)
-    } catch (err) {
-      toast.error(getError(err))
+      const result = await signIn('google', { redirect: false })
+      console.log('Google Login: ' + result)
+    } catch (error) {
+      toast.error(getError(error))
     }
   }
 
   const kakaoLoginHandler = async () => {
     try {
-      const result = await signIn('kakao', {
-        redirect: false,
-      })
-      console.log('Kakao Login:' + result)
-    } catch (err) {
-      toast.error(getError(err))
+      const result = await signIn('kakao', { redirect: false })
+      console.log('Kakao Login: ' + result)
+    } catch (error) {
+      toast.error(getError(error))
     }
   }
 
   const naverLoginHandler = async () => {
     try {
-      const result = await signIn('naver', {
-        redirect: false,
-      })
-      console.log('naver Login:' + result)
-    } catch (err) {
-      toast.error(getError(err))
+      const result = await signIn('naver', { redirect: false })
+      console.log('Naver Login: ' + result)
+    } catch (error) {
+      toast.error(getError(error))
     }
   }
 
@@ -88,21 +79,22 @@ export default function LoginScreen() {
     <Layout title="Login">
       <form
         className="mx-auto max-w-screen-md"
-        onSubmit={handleSubmit(submithandler)}
+        onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="text-xl mb-4">Login</h1>
-        <div className="mb-4 bg-red-200 p-4 rounded-lg">
+        <h1 className="text-3xl text-center mb-4">Login</h1>
+
+        <div className="mb-4 p-4 rounded-lg">
           <label htmlFor="email">Email</label>
           <input
             type="email"
             {...register('email', {
-              required: 'please enter email',
+              required: 'Please enter email',
               pattern: {
                 value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/i,
                 message: '유효한 이메일 주소를 입력하세요',
               },
             })}
-            className="w-full"
+            className="w-full mb-4"
             id="email"
             autoFocus
           />
@@ -125,19 +117,19 @@ export default function LoginScreen() {
             autoFocus
           />
           {errors.password && (
-            <div className="text-red-500">{errors.password.message}</div>
+            <div className="text-red-500"> {errors.password.message} </div>
           )}
 
-          <button className="primary-button" type="submit">
+          <button className="primary-button mb-4" type="submit">
             Login
           </button>
-        </div>
-        <div className="mb-4">
-          계정이 없으면 등록하세요. &nbsp;&nbsp;{''}
-          <Link href="register">Register</Link>
+          <div>
+            계정이 없으면 등록하세요. &nbsp;-&nbsp;
+            <Link href={`/register?redirect=${redirect || '/'}`}>Register</Link>
+          </div>
         </div>
 
-        <div className="p-5 bg-gray-500 p-4 rounded-lg">
+        <div className="mb-4 p-4 rounded-lg">
           <div className="mb-4">
             <button
               className="primary-button w-full"
@@ -147,13 +139,14 @@ export default function LoginScreen() {
               Github Login
             </button>
           </div>
+
           <div className="mb-4">
             <button
               className="primary-button w-full"
               type="button"
-              onClick={googlehubLoginHandler}
+              onClick={googleLoginHandler}
             >
-              Goolge Login
+              Google Login
             </button>
           </div>
 
@@ -173,7 +166,7 @@ export default function LoginScreen() {
               type="button"
               onClick={naverLoginHandler}
             >
-              Naver Login
+              네이버 로그인
             </button>
           </div>
         </div>

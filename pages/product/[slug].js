@@ -1,33 +1,28 @@
-import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
-//import data from '../../utils/data'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React, { useContext } from 'react'
 import Layout from '../../components/Layout'
+import data from '../../utils/data'
 import { Store } from '../../utils/Store'
-import Product from '../../models/Product'
-import db from '../../utils/db'
-import axios from 'axios'
 
-export default function ProductScreen({ product }) {
+export default function ProductScreen() {
   const { state, dispatch } = useContext(Store)
-
-  //const { query } = useRouter()
-  //const { slug } = query
-  console.log(product)
   const router = useRouter()
-  //const product = data.products.find((x) => x.slug === slug)
+
+  const { query } = useRouter()
+  const { slug } = query
+  const product = data.products.find((x) => x.slug === slug)
 
   if (!product) {
-    return <Layout title="Product Not Found">Product Not Found</Layout>
+    return <div>Product Not Found. 그런 상품이 없습니다.</div>
   }
-  const addToCartHandler = async () => {
-    console.log(state.cart.cartItems)
+
+  const addToCartHandler = () => {
     const existItem = state.cart.cartItems.find((x) => x.slug === product.slug)
     const quantity = existItem ? existItem.quantity + 1 : 1
-    const { data } = await axios.get(`/api/products/${product.id}`)
 
-    if (data.countInStock < quantity) {
+    if (product.countInStock < quantity) {
       alert('Sorry. 재고가 부족합니다.')
       return
     }
@@ -35,6 +30,7 @@ export default function ProductScreen({ product }) {
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } })
     router.push('/cart')
   }
+
   return (
     <Layout title={product.name}>
       <div className="py-2">
@@ -51,14 +47,20 @@ export default function ProductScreen({ product }) {
           ></Image>
         </div>
 
-        <ul>
-          <li>
-            <h1 className="text-lg">{product.name}</h1>
-          </li>
-          <li>Category:{product.category}</li>
-          <li>Brand:{product.brand}</li>
-          <li>Description: {product.description}</li>
-        </ul>
+        <div>
+          <ul>
+            <li>
+              <h1 className="text-lg">{product.name}</h1>
+            </li>
+            <li>Category: {product.category}</li>
+            <li>Brand: {product.brand}</li>
+            <li>
+              {product.rating} of {product.numReviews}
+            </li>
+            <li>Description: {product.description}</li>
+          </ul>
+        </div>
+
         <div>
           <div className="card p-5">
             <div className="mb-2 flex justify-between">
@@ -67,7 +69,7 @@ export default function ProductScreen({ product }) {
             </div>
             <div className="mb-2 flex justify-between">
               <div>Status</div>
-              <div>{product.countInStock > 0 ? 'in stock' : 'Unavailable'}</div>
+              <div>{product.countInStock > 0 ? 'In stock' : 'Unavailable'}</div>
             </div>
             <button
               className="primary-button w-full"
@@ -80,18 +82,4 @@ export default function ProductScreen({ product }) {
       </div>
     </Layout>
   )
-}
-
-export async function getServerSideProps(context) {
-  const { params } = context
-  const { sulg } = params
-
-  await db.connect()
-  const product = await Product.findOne(sulg).lean()
-  await db.disconnect()
-  return {
-    props: {
-      product: product ? db.convertDocToObj(product) : null,
-    },
-  }
 }

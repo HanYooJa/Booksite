@@ -11,7 +11,8 @@ const handler = async (req, res) => {
   await Product.insertMany(data.products)
   await db.disconnect()
   res.send({
-    message: 'seeded sucessfully. 초기 사용자를 성공적으로 등록했습니다.',
+    message: 'seeded successfully. 초기 사용자를 성공적으로 등록했습니다.',
   })
 }
+
 export default handler

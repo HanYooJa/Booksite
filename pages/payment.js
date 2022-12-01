@@ -6,7 +6,7 @@ import CheckoutWizard from '../components/CheckoutWizard'
 import Layout from '../components/Layout'
 import { Store } from '../utils/Store'
 export default function PaymentScreen() {
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('외상')
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
   const { state, dispatch } = useContext(Store)
   const { cart } = state
   const { shippingAddress, paymentMethod } = cart
@@ -49,6 +49,7 @@ export default function PaymentScreen() {
               checked={selectedPaymentMethod === payment}
               onChange={() => setSelectedPaymentMethod(payment)}
             />
+
             <label className="p-2" htmlFor={payment}>
               {payment}
             </label>
@@ -69,3 +70,5 @@ export default function PaymentScreen() {
     </Layout>
   )
 }
+
+PaymentScreen.auth = true

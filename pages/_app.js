@@ -18,7 +18,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     </SessionProvider>
   )
 }
-
 function Auth({ children }) {
   const router = useRouter()
   const { status } = useSession({

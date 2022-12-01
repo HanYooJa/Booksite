@@ -5,6 +5,7 @@ import CheckoutWizard from '../components/CheckoutWizard'
 import Layout from '../components/Layout'
 import { Store } from '../utils/Store'
 import { useRouter } from 'next/router'
+
 export default function ShippingScreen() {
   const {
     handleSubmit,
@@ -53,7 +54,6 @@ export default function ShippingScreen() {
         <h1 className="mb-4 text-xl">Shipping Address</h1>
         <div className="mb-4">
           <label htmlFor="fullName">Full Name</label>
-
           <input
             className="w-full"
             id="fullName"
@@ -62,15 +62,12 @@ export default function ShippingScreen() {
               required: 'Please enter full name',
             })}
           />
-
           {errors.fullName && (
             <div className="text-red-500">{errors.fullName.message}</div>
           )}
         </div>
-
         <div className="mb-4">
           <label htmlFor="address">Address</label>
-
           <input
             className="w-full"
             id="address"
@@ -79,15 +76,12 @@ export default function ShippingScreen() {
               minLength: { value: 3, message: 'Address is more than 2 chars' },
             })}
           />
-
           {errors.address && (
             <div className="text-red-500">{errors.address.message}</div>
           )}
         </div>
-
         <div className="mb-4">
           <label htmlFor="city">City</label>
-
           <input
             className="w-full"
             id="city"
@@ -95,14 +89,12 @@ export default function ShippingScreen() {
               required: 'Please enter city',
             })}
           />
-
           {errors.city && (
             <div className="text-red-500 ">{errors.city.message}</div>
           )}
         </div>
         <div className="mb-4">
           <label htmlFor="postalCode">Postal Code</label>
-
           <input
             className="w-full"
             id="postalCode"
@@ -110,15 +102,12 @@ export default function ShippingScreen() {
               required: 'Please enter postal code',
             })}
           />
-
           {errors.postalCode && (
             <div className="text-red-500 ">{errors.postalCode.message}</div>
           )}
         </div>
-
         <div className="mb-4">
           <label htmlFor="country">Country</label>
-
           <input
             className="w-full"
             id="country"
