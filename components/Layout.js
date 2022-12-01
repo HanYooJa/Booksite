@@ -38,12 +38,12 @@ export default function Layout({ title, children }) {
       <div className="flex flex-col min-h-screen justify-between">
         <header>
           <nav className="flex bg-slate-200 h-12 items-center justify-between shadows-md px-4">
-            <Link href="/">
+            <Link href="/" legacyBehavior>
               <a className="text-lg font-bold">NextMall</a>
             </Link>
             <div>
-              <Link href="/intro" className="p-2">
-                자기소개
+              <Link href="/intro" legacyBehavior>
+                <a className="p-2">자기소개</a>
               </Link>
 
               <Link href="/cart" legacyBehavior>
@@ -86,8 +86,8 @@ export default function Layout({ title, children }) {
                   </Menu.Items>
                 </Menu>
               ) : (
-                <Link href="/login" className="p-2">
-                  Login
+                <Link href="/login" legacyBehavior>
+                  <a className="p-2">Login</a>
                 </Link>
               )}
             </div>

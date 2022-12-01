@@ -217,10 +217,8 @@ function OrderScreen() {
                   {orderItems.map((item) => (
                     <tr key={item._id} className="border-b">
                       <td>
-                        <Link
-                          href={`/product/${item.slug}`}
-                          className="flex items-center"
-                          legacyBehavior>
+                        <Link href={`/product/${item.slug}`} legacyBehavior>
+                          <a className="flex items-center"></a>
 
                           <Image
                             src={item.image}
@@ -303,7 +301,7 @@ function OrderScreen() {
         </div>
       )}
     </Layout>
-  );
+  )
 }
 
 OrderScreen.auth = true

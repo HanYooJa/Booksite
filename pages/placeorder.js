@@ -106,10 +106,8 @@ export default function PlaceOrderScreen() {
                   {cartItems.map((item) => (
                     <tr key={item._id} className="border-b">
                       <td>
-                        <Link
-                          href={`/product/${item.slug}`}
-                          className="flex items-center"
-                          legacyBehavior>
+                        <Link href={`/product/${item.slug}`} legacyBehavior>
+                          <a className="flex items-center"></a>
 
                           <Image
                             src={item.image}
@@ -177,7 +175,7 @@ export default function PlaceOrderScreen() {
         </div>
       )}
     </Layout>
-  );
+  )
 }
 
 PlaceOrderScreen.auth = true
