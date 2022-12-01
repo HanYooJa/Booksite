@@ -133,8 +133,8 @@ export default function LoginScreen() {
           </button>
         </div>
         <div className="mb-4">
-          Don&apos;t have an account? &nbsp;
-          <Link href={`/register?redirect=${redirect || '/'}`}>Register</Link>
+          계정이 없으면 등록하세요. &nbsp;&nbsp;{''}
+          <Link href="register">Register</Link>
         </div>
 
         <div className="p-5 bg-gray-500 p-4 rounded-lg">
@@ -179,5 +179,5 @@ export default function LoginScreen() {
         </div>
       </form>
     </Layout>
-  );
+  )
 }

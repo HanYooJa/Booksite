@@ -4,7 +4,7 @@ import React from 'react'
 export default function ProductItem({ product, addToCartHandler }) {
   return (
     <div className="card">
-      <Link href={`/product/${product.slug}`}>
+      <Link href={`/product/${product.slug}`} legacyBehavior>
 
         <img
           src={product.image}
@@ -17,7 +17,7 @@ export default function ProductItem({ product, addToCartHandler }) {
         className="flex flex-col items-center justify-center
       p-5"
       >
-        <Link href={`/product/${product.slug}`}>
+        <Link href={`/product/${product.slug}`} legacyBehavior>
 
           <h2 className="text-lg">{product.name}</h2>
 

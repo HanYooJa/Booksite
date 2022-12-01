@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import Layout from '../components/Layout'
 import { Store } from '../utils/Store'
-import { XCircleIcon } from '@heroicons/react/outline'
+import { XCircleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 
@@ -44,16 +44,17 @@ function CartScreen() {
                 {cartItems.map((item) => (
                   <tr key={item.slug} className="border-b">
                     <td className="p-5 text-center">
-                      <Link href={'/product/${item.slug}'} className="flex items-center">
-
-                        <Image
-                          src={item.image}
-                          alt={item.image}
-                          width={50}
-                          height={50}
-                        />
-                        {item.name}
-
+                      <Link href={'/product/${item.slug}'}>
+                        <a className="flex items-center">
+                          <Image
+                            src={item.image}
+                            alt={item.image}
+                            width={50}
+                            height={50}
+                          />
+                          &nbsp;&nbsp;
+                          {item.name}
+                        </a>
                       </Link>
                       <td className="p-5 text-right">
                         <select
@@ -99,7 +100,7 @@ function CartScreen() {
         </div>
       )}
     </Layout>
-  );
+  )
 }
 
 export default dynamic(() => Promise.resolve(CartScreen), { ssr: false })
