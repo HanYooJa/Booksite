@@ -38,8 +38,8 @@ export default function Layout({ title, children }) {
       <div className="flex flex-col min-h-screen justify-between">
         <header>
           <nav className="flex bg-slate-200 h-12 items-center justify-between shadows-md px-4">
-            <Link href="/" className="text-lg font-bold">
-              NextMall
+            <Link href="/">
+              <a className="text-lg font-bold">NextMall</a>
             </Link>
             <div>
               <Link href="/intro" className="p-2">
@@ -101,5 +101,5 @@ export default function Layout({ title, children }) {
         </footer>
       </div>
     </div>
-  );
+  )
 }
