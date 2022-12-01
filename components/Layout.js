@@ -38,21 +38,22 @@ export default function Layout({ title, children }) {
       <div className="flex flex-col min-h-screen justify-between">
         <header>
           <nav className="flex bg-slate-200 h-12 items-center justify-between shadows-md px-4">
-            <Link href="/" className="text-lg font-bold">
-               NextMall 
+            <Link href="/">
+              <a className="text-lg font-bold">NextMall</a>
             </Link>
             <div>
-              <Link href="/intro" className="p-2">
-                자기소개
+              <Link href="/intro">
+                <a className="p-2">자기소개</a>
               </Link>
 
-              <Link href="/cart" className="p-2">
-                Cart{cartItemsCount > 0 && (
+              <Link href="/cart" legacyBehavior>
+                <a className="p-2">Cart</a>
+
+                {cartItemsCount > 0 && (
                   <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
                     {cartItemsCount}
                   </span>
                 )}
-
               </Link>
 
               {status === 'loading' ? (
@@ -64,16 +65,13 @@ export default function Layout({ title, children }) {
                   </Menu.Button>
                   <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white  shadow-lg ">
                     <Menu.Item>
-                      <DropdownLink className="dropdown-link" href="/profile">
-                        Profile
+                      <DropdownLink href="/profile">
+                        <a className="dropdown-link">Profile</a>
                       </DropdownLink>
                     </Menu.Item>
                     <Menu.Item>
-                      <DropdownLink
-                        className="dropdown-link"
-                        href="/order-history"
-                      >
-                        Order History
+                      <DropdownLink href="/order-history">
+                        <a className="dropdown-link">Order History</a>
                       </DropdownLink>
                     </Menu.Item>
                     <Menu.Item>
@@ -88,8 +86,8 @@ export default function Layout({ title, children }) {
                   </Menu.Items>
                 </Menu>
               ) : (
-                <Link href="/login" className="p-2">
-                  Login
+                <Link href="/login">
+                  <a className="p-2">Login</a>
                 </Link>
               )}
             </div>
@@ -103,5 +101,5 @@ export default function Layout({ title, children }) {
         </footer>
       </div>
     </div>
-  );
+  )
 }
